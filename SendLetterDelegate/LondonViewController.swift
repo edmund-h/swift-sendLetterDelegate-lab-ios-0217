@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol LondonViewControllerDelegate: class {
+    func letterSent(from: LondonViewController, message: String)
+}
+
 class LondonViewController: UIViewController, UITextViewDelegate {
     
     // View elements
@@ -23,6 +27,8 @@ class LondonViewController: UIViewController, UITextViewDelegate {
     // Keyboard height for adjusting view elements
     var keyboardHeight: CGFloat = 0
     
+    //instance property
+    weak var londonViewControllerDelegate: LondonViewControllerDelegate?
     
     // MARK: View Lifecycle
     
@@ -41,6 +47,7 @@ class LondonViewController: UIViewController, UITextViewDelegate {
         animateLetter {
             self.dismiss(animated: true, completion: nil)
         }
+        londonViewControllerDelegate?.letterSent(from: self, message: letterTextView.text)
     }
     
     @IBAction func tapGestureTapped(_ sender: UITapGestureRecognizer) {
